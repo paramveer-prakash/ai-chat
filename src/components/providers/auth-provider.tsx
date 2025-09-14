@@ -31,10 +31,25 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const isPublicRoute = publicRoutes.includes(pathname);
 
     if (!auth.isAuthenticated && !isPublicRoute) {
-      // Redirect to login if user is not authenticated and trying to access protected route
-      router.push(routes.login);
-    } else if (auth.isAuthenticated && pathname === routes.login) {
-      // Redirect to chat if user is authenticated and trying to access login page
+      // Check if there's a stored authentication state before redirecting
+      const storedAuth = localStorage.getItem('auth-store');
+      if (storedAuth) {
+        try {
+          const parsedAuth = JSON.parse(storedAuth);
+          if (parsedAuth.state?.isAuthenticated) {
+            // Don't redirect immediately, let OIDC context load the user
+            return;
+          }
+        } catch (e) {
+          // Invalid stored auth, clear it
+          localStorage.removeItem('auth-store');
+        }
+      }
+      
+      // Redirect to home page instead of login to show the landing page
+      router.push(routes.home);
+    } else if (auth.isAuthenticated && (pathname === routes.login || pathname === routes.home)) {
+      // Redirect to chat if user is authenticated and trying to access login/home page
       router.push(routes.chat);
     }
   }, [auth.isAuthenticated, pathname, router, auth.isLoading]);

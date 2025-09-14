@@ -7,14 +7,37 @@ import { Button } from '@/components/ui/button'
 import { Bot, MessageSquare, Shield, Zap } from 'lucide-react'
 
 export default function HomePage() {
-  const { isAuthenticated, isLoading, signinRedirect } = useAuth()
+  const { isAuthenticated, isLoading, signinRedirect, user } = useAuth()
   const router = useRouter()
 
   useEffect(() => {
-    if (!isLoading && isAuthenticated) {
-      router.push('/chat')
+    // Check for existing authentication immediately
+    if (!isLoading) {
+      if (isAuthenticated) {
+        router.push('/chat')
+      } else {
+        // Try to get user if there might be a valid session
+        const storedAuth = localStorage.getItem('auth-store');
+        if (storedAuth) {
+          try {
+            const parsedAuth = JSON.parse(storedAuth);
+            if (parsedAuth.state?.isAuthenticated && parsedAuth.state?.access_token) {
+              // There's stored auth, let's wait a bit for OIDC to potentially restore the session
+              const timeout = setTimeout(() => {
+                if (!isAuthenticated) {
+                  // If still not authenticated after waiting, clear stored auth
+                  localStorage.removeItem('auth-store');
+                }
+              }, 2000);
+              return () => clearTimeout(timeout);
+            }
+          } catch (e) {
+            localStorage.removeItem('auth-store');
+          }
+        }
+      }
     }
-  }, [isAuthenticated, isLoading, router])
+  }, [isAuthenticated, isLoading, router, user])
 
   if (isLoading) {
     return (
