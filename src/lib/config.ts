@@ -8,7 +8,7 @@ export const cognitoAuthConfig = {
   response_type: "code",
   scope: "email openid profile",
   loadUserInfo: true,
-  cognitoDomain: process.env.NEXT_PUBLIC_COGNITO_DOMAIN || "https://ap-south-1q9mjw92rh.auth.ap-south-1.amazoncognito.com",
+  cognitoDomain: process.env.NEXT_PUBLIC_COGNITO_DOMAIN || "https://ap-south-1kayulakq6.auth.ap-south-1.amazoncognito.com",
   
   // Session management settings for cross-tab authentication
   automaticSilentRenew: true,
