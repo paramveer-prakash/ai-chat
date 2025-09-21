@@ -3,6 +3,7 @@
 import { Message } from '@/types'
 import { cn, formatDate, formatTokens } from '@/lib/utils'
 import { User, Bot, Clock, Zap } from 'lucide-react'
+import { MarkdownRenderer } from './markdown-renderer'
 
 interface MessageBubbleProps {
   message: Message
@@ -48,9 +49,13 @@ export function MessageBubble({ message, isLoading = false }: MessageBubbleProps
             ) : (
               <>
                 <div className="text-gray-900 leading-7">
-                  <div className="whitespace-pre-wrap break-words">
-                    {message.content}
-                  </div>
+                  {isAssistant ? (
+                    <MarkdownRenderer content={message.content} />
+                  ) : (
+                    <div className="whitespace-pre-wrap break-words">
+                      {message.content}
+                    </div>
+                  )}
                 </div>
                 
                 {/* Message metadata */}
