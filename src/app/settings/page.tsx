@@ -36,30 +36,31 @@ export default function SettingsPage() {
     <div className="min-h-screen bg-white">
       {/* Header */}
       <div className="border-b border-gray-200">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center space-x-4">
+        <div className="max-w-4xl mx-auto px-3 sm:px-4 lg:px-8">
+          <div className="flex items-center justify-between h-14 sm:h-16">
+            <div className="flex items-center space-x-2 sm:space-x-4">
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={handleBack}
-                className="flex items-center space-x-2"
+                className="flex items-center space-x-1 sm:space-x-2 text-sm sm:text-base"
               >
                 <ArrowLeft className="w-4 h-4" />
-                <span>Back to Chat</span>
+                <span className="hidden sm:inline">Back to Chat</span>
+                <span className="sm:hidden">Back</span>
               </Button>
-              <h1 className="text-xl font-semibold text-gray-900">Settings</h1>
+              <h1 className="text-lg sm:text-xl font-semibold text-gray-900">Settings</h1>
             </div>
           </div>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="space-y-8">
+      <div className="max-w-4xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-8">
+        <div className="space-y-6 sm:space-y-8">
           
           {/* Account Section */}
-          <div className="bg-white border border-gray-200 rounded-lg p-6">
+          <div className="bg-white border border-gray-200 rounded-lg p-4 sm:p-6">
             <div className="flex items-center space-x-3 mb-6">
               <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
                 <User className="w-5 h-5 text-blue-600" />
@@ -99,7 +100,7 @@ export default function SettingsPage() {
           </div>
 
           {/* Usage & Rate Limits */}
-          <div className="bg-white border border-gray-200 rounded-lg p-6">
+          <div className="bg-white border border-gray-200 rounded-lg p-4 sm:p-6">
             <div className="flex items-center space-x-3 mb-6">
               <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
                 <Zap className="w-5 h-5 text-green-600" />
@@ -116,7 +117,7 @@ export default function SettingsPage() {
           </div>
 
           {/* AI Model Information */}
-          <div className="bg-white border border-gray-200 rounded-lg p-6">
+          <div className="bg-white border border-gray-200 rounded-lg p-4 sm:p-6">
             <div className="flex items-center space-x-3 mb-6">
               <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
                 <Info className="w-5 h-5 text-purple-600" />
@@ -152,7 +153,7 @@ export default function SettingsPage() {
           </div>
 
           {/* Privacy & Security */}
-          <div className="bg-white border border-gray-200 rounded-lg p-6">
+          <div className="bg-white border border-gray-200 rounded-lg p-4 sm:p-6">
             <div className="flex items-center space-x-3 mb-6">
               <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
                 <Shield className="w-5 h-5 text-orange-600" />

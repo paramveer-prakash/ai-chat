@@ -36,14 +36,14 @@ export function ChatWindow({
       {/* Messages */}
       <div className="flex-1 overflow-y-auto">
         {messages.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-full text-center px-4">
+          <div className="flex flex-col items-center justify-center h-full text-center px-4 py-8">
             <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mb-6">
               <Bot className="w-6 h-6 text-gray-600" />
             </div>
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-4">
               How can I help you today?
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-w-2xl mb-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-2xl mb-8">
               <div className="p-4 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors cursor-pointer">
                 <h3 className="font-medium text-gray-900 mb-2">💡 Explain concepts</h3>
                 <p className="text-sm text-gray-600">Break down complex topics into simple terms</p>
@@ -97,7 +97,7 @@ export function ChatWindow({
       )}
 
       {/* Input */}
-      <div className="border-t border-gray-200 bg-white px-4 py-4">
+      <div className="border-t border-gray-200 bg-white px-3 sm:px-4 py-3 sm:py-4">
         <div className="max-w-3xl mx-auto">
           <ChatInput 
             onSendMessage={onSendMessage}

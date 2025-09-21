@@ -19,6 +19,7 @@ interface ChatActions {
   createConversation: (title?: string) => Promise<Conversation | null>;
   loadConversations: () => Promise<void>;
   selectConversation: (conversation: Conversation) => Promise<void>;
+  switchToConversation: (conversationId: number) => Promise<void>;
   archiveConversation: (conversationId: number) => Promise<void>;
   deleteConversation: (conversationId: number) => Promise<void>;
   
@@ -112,20 +113,53 @@ export const useChatStore = create<ChatStore>((set, get) => ({
     try {
       set({ isLoading: true, error: null });
       
-      // Load conversation details and messages
+      // Load conversation details and message history
       const [conversationDetail, messages] = await Promise.all([
         ChatAPI.getConversation(conversation.id),
-        ChatAPI.getMessages(conversation.id)
+        ChatAPI.getMessages(conversation.id, 50) // Load last 50 messages
       ]);
+      
+      console.log(`🔄 Switched to conversation ${conversation.id} with ${messages.length} messages`);
       
       set({
         currentConversation: conversationDetail,
-        messages: messages,
+        messages: messages.reverse(), // Reverse to show chronological order (oldest to newest)
         isLoading: false
       });
-    } catch (error) {
+      
+    } catch (error: unknown) {
       console.error('Failed to load conversation:', error);
-      set({ error: 'Failed to load conversation', isLoading: false });
+      
+      let errorMessage = 'Failed to load conversation';
+      
+      if (error && typeof error === 'object') {
+        const apiError = error as APIError;
+        if (apiError.response?.status === 404) {
+          errorMessage = 'Conversation not found';
+        } else if (apiError.response?.status === 403) {
+          errorMessage = 'Access denied to this conversation';
+        } else if (apiError.response?.data?.message) {
+          errorMessage = apiError.response.data.message;
+        }
+      }
+      
+      set({ error: errorMessage, isLoading: false });
+    }
+  },
+
+  switchToConversation: async (conversationId: number) => {
+    const conversation = get().conversations.find(c => c.id === conversationId);
+    if (conversation) {
+      await get().selectConversation(conversation);
+    } else {
+      // If conversation not in list, try to load it directly
+      try {
+        const conversationDetail = await ChatAPI.getConversation(conversationId);
+        await get().selectConversation(conversationDetail);
+      } catch (error) {
+        console.error('Failed to load conversation by ID:', error);
+        set({ error: 'Conversation not found' });
+      }
     }
   },
 

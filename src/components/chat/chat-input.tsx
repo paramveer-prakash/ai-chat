@@ -44,14 +44,14 @@ export function ChatInput({
 
   return (
     <div className="relative">
-      <div className="flex items-end bg-gray-50 border border-gray-200 rounded-2xl p-3 focus-within:border-gray-300 transition-colors">
+      <div className="flex items-end bg-gray-50 border border-gray-200 rounded-2xl p-2.5 sm:p-3 focus-within:border-gray-300 transition-colors">
         <textarea
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
           disabled={disabled || isLoading}
-          className="flex-1 resize-none bg-transparent text-gray-900 placeholder-gray-500 border-0 focus:outline-none min-h-[24px] max-h-40 text-sm leading-6"
+          className="flex-1 resize-none bg-transparent text-gray-900 placeholder-gray-500 border-0 focus:outline-none min-h-[24px] max-h-32 sm:max-h-40 text-sm sm:text-base leading-6"
           rows={1}
           style={{
             height: 'auto',
@@ -69,7 +69,7 @@ export function ChatInput({
           disabled={isDisabled}
           size="sm"
           className={cn(
-            "ml-2 h-8 w-8 p-0 rounded-lg transition-all",
+            "ml-2 h-8 w-8 sm:h-9 sm:w-9 p-0 rounded-lg transition-all",
             isDisabled 
               ? "bg-gray-200 text-gray-400 cursor-not-allowed" 
               : "bg-gray-900 text-white hover:bg-gray-700"

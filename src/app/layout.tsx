@@ -14,6 +14,12 @@ export const metadata: Metadata = {
   description: "An intuitive AI chat experience designed for clarity, speed, and intelligence with Amazon Nova Pro at its core.",
 };
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
