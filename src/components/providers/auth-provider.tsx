@@ -40,7 +40,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
             // Don't redirect immediately, let OIDC context load the user
             return;
           }
-        } catch (e) {
+        } catch {
           // Invalid stored auth, clear it
           localStorage.removeItem('auth-store');
         }

@@ -10,8 +10,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "AI Chat - Powered by Amazon Nova Pro",
-  description: "A modern ChatGPT-like interface for AI conversations using Amazon Nova Pro model",
+  title: "AskSamay – Smarter Conversations, Simplified",
+  description: "An intuitive AI chat experience designed for clarity, speed, and intelligence with Amazon Nova Pro at its core.",
 };
 
 export default function RootLayout({

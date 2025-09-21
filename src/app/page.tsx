@@ -31,7 +31,7 @@ export default function HomePage() {
               }, 2000);
               return () => clearTimeout(timeout);
             }
-          } catch (e) {
+          } catch {
             localStorage.removeItem('auth-store');
           }
         }
