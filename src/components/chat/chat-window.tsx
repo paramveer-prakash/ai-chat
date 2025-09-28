@@ -31,34 +31,34 @@ export function ChatWindow({
   }, [messages, isLoading])
 
   return (
-    <div className="flex flex-col h-full bg-white">
+    <div className="flex flex-col h-full bg-chat-bg">
 
       {/* Messages */}
       <div className="flex-1 overflow-y-auto">
         {messages.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-full text-center px-4 py-8">
-            <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mb-6">
-              <Bot className="w-6 h-6 text-gray-600" />
+          <div className="flex flex-col items-center justify-center h-full text-center px-4 py-12">
+            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center mb-8 shadow-lg">
+              <Bot className="w-8 h-8 text-white" />
             </div>
-            <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-4">
+            <h2 className="text-2xl sm:text-3xl font-display font-semibold text-foreground mb-6">
               How can I help you today?
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-2xl mb-8">
-              <div className="p-4 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors cursor-pointer">
-                <h3 className="font-medium text-gray-900 mb-2">💡 Explain concepts</h3>
-                <p className="text-sm text-gray-600">Break down complex topics into simple terms</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mb-12">
+              <div className="p-6 rounded-2xl hover:bg-muted/30 transition-all duration-200 cursor-pointer group">
+                <h3 className="font-medium text-foreground mb-3 group-hover:text-primary transition-colors">💡 Explain concepts</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">Break down complex topics into simple terms</p>
               </div>
-              <div className="p-4 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors cursor-pointer">
-                <h3 className="font-medium text-gray-900 mb-2">✍️ Write content</h3>
-                <p className="text-sm text-gray-600">Create essays, emails, code, or creative writing</p>
+              <div className="p-6 rounded-2xl hover:bg-muted/30 transition-all duration-200 cursor-pointer group">
+                <h3 className="font-medium text-foreground mb-3 group-hover:text-primary transition-colors">✍️ Write content</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">Create essays, emails, code, or creative writing</p>
               </div>
-              <div className="p-4 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors cursor-pointer">
-                <h3 className="font-medium text-gray-900 mb-2">🔍 Answer questions</h3>
-                <p className="text-sm text-gray-600">Get detailed answers on any topic</p>
+              <div className="p-6 rounded-2xl hover:bg-muted/30 transition-all duration-200 cursor-pointer group">
+                <h3 className="font-medium text-foreground mb-3 group-hover:text-primary transition-colors">🔍 Answer questions</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">Get detailed answers on any topic</p>
               </div>
-              <div className="p-4 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors cursor-pointer">
-                <h3 className="font-medium text-gray-900 mb-2">🎯 Solve problems</h3>
-                <p className="text-sm text-gray-600">Work through challenges step by step</p>
+              <div className="p-6 rounded-2xl hover:bg-muted/30 transition-all duration-200 cursor-pointer group">
+                <h3 className="font-medium text-foreground mb-3 group-hover:text-primary transition-colors">🎯 Solve problems</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">Work through challenges step by step</p>
               </div>
             </div>
           </div>

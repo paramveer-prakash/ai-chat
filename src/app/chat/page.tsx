@@ -92,40 +92,41 @@ export default function ChatPage() {
   }
 
   return (
-    <div className="h-screen flex bg-white overflow-hidden relative">
+    <div className="h-screen flex bg-chat-bg overflow-hidden">
       {/* Mobile Overlay */}
       {sidebarOpen && (
         <div 
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+          className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
 
-      {/* Sidebar - ChatGPT Style */}
+      {/* Sidebar - Modern Clean Design */}
       <div className={`
         ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
         fixed lg:relative lg:translate-x-0
-        w-80 h-full bg-gray-900 text-white flex flex-col flex-shrink-0
-        transition-transform duration-300 ease-in-out z-50
-        lg:z-auto
+        w-80 h-full bg-chat-sidebar-bg text-foreground flex flex-col
+        transition-transform duration-200 ease-out z-50 lg:z-auto
+        ${!sidebarOpen && 'lg:hidden'}
+        border-r border-gray-200/50 dark:border-gray-700/50
       `}>
         {/* Mobile Close Button */}
-        <div className="lg:hidden p-4 border-b border-gray-700">
+        <div className="lg:hidden p-4">
           <Button
             variant="ghost"
             size="sm"
             onClick={() => setSidebarOpen(false)}
-            className="text-gray-300 hover:text-white hover:bg-gray-800 mb-3"
+            className="text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg"
           >
             ✕ Close
           </Button>
         </div>
 
         {/* Sidebar Header */}
-        <div className="p-4 border-b border-gray-700">
+        <div className="p-4">
           <Button
             onClick={handleCreateNewConversation}
-            className="w-full bg-gray-800 hover:bg-gray-700 border border-gray-600 text-white flex items-center justify-center gap-2 py-3"
+            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl font-medium flex items-center justify-center gap-2 py-3"
             disabled={isLoading}
           >
             <Plus className="w-4 h-4" />
@@ -134,24 +135,24 @@ export default function ChatPage() {
         </div>
 
         {/* Conversation List */}
-        <div className="flex-1 overflow-y-auto">
+        <div className="flex-1 overflow-y-auto sidebar-scroll">
           <ConversationManager />
         </div>
 
         {/* Sidebar Footer */}
-        <div className="p-4 border-t border-gray-700">
+        <div className="p-4">
           <div className="space-y-2">
             <Button
               variant="ghost"
               onClick={handleOpenSettings}
-              className="w-full justify-start text-gray-300 hover:text-white hover:bg-gray-800"
+              className="w-full justify-start text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg"
             >
               <Settings className="w-4 h-4 mr-3" />
               Settings
             </Button>
             
             {user?.profile && (
-              <div className="text-sm text-gray-400 truncate">
+              <div className="text-sm text-muted-foreground truncate">
                 {user.profile.email}
               </div>
             )}
@@ -161,35 +162,38 @@ export default function ChatPage() {
 
       {/* Main Chat Area */}
       <div className="flex-1 flex flex-col min-w-0">
-        {/* Top Bar */}
-        <div className="flex items-center justify-between p-3 sm:p-4 border-b border-gray-200 bg-white flex-shrink-0">
-          <div className="flex items-center space-x-2 sm:space-x-3 flex-1 min-w-0">
+        {/* Top Bar - Clean Design */}
+        <div className="flex items-center justify-between p-4 sm:p-6 bg-chat-bg flex-shrink-0">
+          <div className="flex items-center space-x-3 flex-1 min-w-0">
             <Button
               variant="ghost"
               size="sm"
               onClick={toggleSidebar}
-              className="text-gray-600 hover:text-gray-900 flex-shrink-0"
+              className="text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg p-2"
             >
               {sidebarOpen ? <PanelLeftClose className="w-5 h-5" /> : <PanelLeft className="w-5 h-5" />}
             </Button>
             
-            <div className="flex items-center space-x-2 min-w-0 flex-1">
-              <MessageSquare className="w-5 h-5 text-gray-600 flex-shrink-0" />
-              <h1 className="text-base sm:text-lg font-semibold text-gray-900 truncate">
+            <div className="flex items-center space-x-3 min-w-0 flex-1">
+              <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
+                <MessageSquare className="w-4 h-4 text-primary-foreground" />
+              </div>
+              <h1 className="text-lg font-medium text-foreground truncate">
                 {currentConversation?.title || 'New conversation'}
               </h1>
             </div>
           </div>
           
-          <div className="text-xs sm:text-sm text-gray-500 flex-shrink-0 ml-2">
-            Nova Pro
+          <div className="text-sm text-muted-foreground flex items-center gap-2 flex-shrink-0">
+            <div className="w-2 h-2 bg-primary rounded-full"></div>
+            <span className="text-xs">Nova Pro</span>
           </div>
         </div>
 
         {/* Error Display */}
         {error && (
-          <div className="mx-3 sm:mx-4 mt-3 sm:mt-4 p-3 bg-red-50 border border-red-200 rounded-lg">
-            <p className="text-sm text-red-600">{error}</p>
+          <div className="mx-4 sm:mx-6 mt-4 p-4 bg-destructive/10 rounded-xl">
+            <p className="text-sm text-destructive font-medium">{error}</p>
           </div>
         )}
 

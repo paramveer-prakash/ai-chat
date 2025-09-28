@@ -1,27 +1,82 @@
 @import "tailwindcss";
 
 :root {
+  /* Light theme colors - Clean and minimal */
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #0a0a0a;
+  --muted: #f8f9fa;
+  --muted-foreground: #6b7280;
+  --border: transparent;
+  --input: #ffffff;
+  --primary: #10b981;
+  --primary-foreground: #ffffff;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #0a0a0a;
+  --accent: #f1f5f9;
+  --accent-foreground: #0a0a0a;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --ring: #10b981;
+  --radius: 0.75rem;
+  
+  /* Chat specific colors - Clean design */
+  --chat-bg: #ffffff;
+  --chat-user-bg: #f8fafc;
+  --chat-assistant-bg: #ffffff;
+  --chat-border: transparent;
+  --chat-input-bg: #ffffff;
+  --chat-input-border: #e2e8f0;
+  --chat-sidebar-bg: #f1f5f9;
+  --chat-sidebar-border: transparent;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark theme colors - Clean and minimal */
+    --background: #0a0a0a;
+    --foreground: #fafafa;
+    --muted: #1a1a1a;
+    --muted-foreground: #9ca3af;
+    --border: transparent;
+    --input: #1a1a1a;
+    --primary: #10b981;
+    --primary-foreground: #ffffff;
+    --secondary: #1a1a1a;
+    --secondary-foreground: #fafafa;
+    --accent: #1a1a1a;
+    --accent-foreground: #fafafa;
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+    --ring: #10b981;
+    
+    /* Chat specific dark colors - Clean design */
+    --chat-bg: #0a0a0a;
+    --chat-user-bg: #1a1a1a;
+    --chat-assistant-bg: #0a0a0a;
+    --chat-border: transparent;
+    --chat-input-bg: #1a1a1a;
+    --chat-input-border: #374151;
+    --chat-sidebar-bg: #111111;
+    --chat-sidebar-border: transparent;
+  }
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-inter);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-display: var(--font-sora);
+  --font-mono: var(--font-jetbrains-mono);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-feature-settings: "rlig" 1, "calt" 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Custom scrollbar styles */
@@ -30,16 +85,43 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
+  background: transparent;
   border-radius: 3px;
+  transition: background-color 0.2s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #a1a1a1;
+  background: #c1c1c1;
+}
+
+/* Sidebar specific scrollbar - appears on hover */
+.sidebar-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 3px;
+  transition: background-color 0.2s ease;
+}
+
+.sidebar-scroll:hover::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+}
+
+/* Dark mode sidebar scrollbar */
+@media (prefers-color-scheme: dark) {
+  .sidebar-scroll:hover::-webkit-scrollbar-thumb {
+    background: #475569;
+  }
 }
 
 /* Smooth animations */

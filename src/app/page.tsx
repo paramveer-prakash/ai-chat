@@ -48,16 +48,21 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-background">
       {/* Header */}
-      <header className="border-b border-gray-200 bg-white/80 backdrop-blur-sm">
-        <div className="container mx-auto px-4 py-4">
+      <header className="bg-background/80 backdrop-blur-sm">
+        <div className="container mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Bot className="w-8 h-8 text-blue-600" />
-              <span className="text-xl font-bold text-gray-900">AI Chat</span>
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
+                <Bot className="w-6 h-6 text-primary-foreground" />
+              </div>
+              <span className="text-2xl font-bold text-foreground">AI Chat</span>
             </div>
-            <Button onClick={() => signinRedirect()}>
+            <Button 
+              onClick={() => signinRedirect()}
+              className="bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-2 rounded-xl font-medium transition-all duration-200"
+            >
               Sign In
             </Button>
           </div>
@@ -65,66 +70,66 @@ export default function HomePage() {
       </header>
 
       {/* Hero Section */}
-      <main className="container mx-auto px-4 py-16">
-        <div className="text-center max-w-4xl mx-auto">
-          <div className="mb-8">
-            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center mx-auto mb-6">
-              <MessageSquare className="w-10 h-10 text-white" />
+      <main className="container mx-auto px-4 py-20">
+        <div className="text-center max-w-5xl mx-auto">
+          <div className="mb-12">
+            <div className="w-24 h-24 rounded-full bg-primary flex items-center justify-center mx-auto mb-8">
+              <MessageSquare className="w-12 h-12 text-primary-foreground" />
             </div>
-            <h1 className="text-5xl font-bold text-gray-900 mb-6">
+            <h1 className="text-6xl sm:text-7xl font-bold text-foreground mb-8 leading-tight">
               Your AI Assistant
             </h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+            <p className="text-xl sm:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed">
               Experience the power of Amazon Nova Pro AI model in a beautiful, 
               ChatGPT-like interface. Ask questions, get creative, and explore 
               the possibilities.
             </p>
           </div>
 
-          <div className="mb-12">
+          <div className="mb-16">
             <Button
               onClick={() => signinRedirect()}
               size="lg"
-              className="text-lg px-8 py-3"
+              className="text-lg px-10 py-4 bg-primary text-primary-foreground hover:bg-primary/90 rounded-2xl font-medium transition-all duration-200"
             >
               Get Started
             </Button>
           </div>
 
           {/* Features */}
-          <div className="grid md:grid-cols-3 gap-8 mt-16">
-            <div className="text-center p-6">
-              <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-4">
-                <Zap className="w-6 h-6 text-blue-600" />
+          <div className="grid md:grid-cols-3 gap-8 mt-20">
+            <div className="text-center p-8 rounded-2xl hover:bg-muted/30 transition-all duration-200">
+              <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center mx-auto mb-6">
+                <Zap className="w-8 h-8 text-primary-foreground" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              <h3 className="text-xl font-semibold text-foreground mb-4">
                 Powerful AI
               </h3>
-              <p className="text-gray-600">
+              <p className="text-muted-foreground leading-relaxed">
                 Powered by Amazon Nova Pro, one of the most advanced AI models available.
               </p>
             </div>
 
-            <div className="text-center p-6">
-              <div className="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mx-auto mb-4">
-                <MessageSquare className="w-6 h-6 text-purple-600" />
+            <div className="text-center p-8 rounded-2xl hover:bg-muted/30 transition-all duration-200">
+              <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center mx-auto mb-6">
+                <MessageSquare className="w-8 h-8 text-primary-foreground" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              <h3 className="text-xl font-semibold text-foreground mb-4">
                 Conversation Memory
               </h3>
-              <p className="text-gray-600">
+              <p className="text-muted-foreground leading-relaxed">
                 Maintains context throughout your conversations for natural interactions.
               </p>
             </div>
 
-            <div className="text-center p-6">
-              <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
-                <Shield className="w-6 h-6 text-green-600" />
+            <div className="text-center p-8 rounded-2xl hover:bg-muted/30 transition-all duration-200">
+              <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center mx-auto mb-6">
+                <Shield className="w-8 h-8 text-primary-foreground" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              <h3 className="text-xl font-semibold text-foreground mb-4">
                 Secure & Private
               </h3>
-              <p className="text-gray-600">
+              <p className="text-muted-foreground leading-relaxed">
                 Your conversations are protected with enterprise-grade security.
               </p>
             </div>
@@ -133,10 +138,10 @@ export default function HomePage() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-gray-200 bg-white/80 backdrop-blur-sm mt-20">
-        <div className="container mx-auto px-4 py-8">
-          <div className="text-center text-gray-600">
-            <p>© 2025 AI Chat. Powered by Amazon Nova Pro.</p>
+      <footer className="bg-background/80 backdrop-blur-sm mt-20">
+        <div className="container mx-auto px-4 py-12">
+          <div className="text-center text-muted-foreground">
+            <p className="font-medium">© 2025 AI Chat. Powered by Amazon Nova Pro.</p>
           </div>
         </div>
       </footer>
