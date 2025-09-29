@@ -186,7 +186,7 @@ export default function ChatPage() {
           
           <div className="text-sm text-muted-foreground flex items-center gap-2 flex-shrink-0">
             <div className="w-2 h-2 bg-primary rounded-full"></div>
-            <span className="text-xs">Nova Pro</span>
+            <span className="text-xs">AskSamay</span>
           </div>
         </div>
 
