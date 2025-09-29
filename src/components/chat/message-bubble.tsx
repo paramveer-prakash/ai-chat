@@ -60,7 +60,7 @@ export function MessageBubble({ message, isLoading = false }: MessageBubbleProps
                 )}>
                   <div className={cn(
                     "px-4 py-2 chat-message",
-                    isUser ? "rounded-l-2xl rounded-tr-2xl rounded-br-sm" : "rounded-r-2xl rounded-tl-2xl rounded-bl-sm"
+                    isUser ? "rounded-l-2xl rounded-tr-2xl rounded-br-sm bg-[#333537] rounded-[15px] rounded-tr-none py-[12px] px-[16px]" : "rounded-r-2xl rounded-tl-2xl rounded-bl-sm"
                   )}>
                     {isAssistant ? (
                       <MarkdownRenderer content={message.content} />
@@ -71,13 +71,6 @@ export function MessageBubble({ message, isLoading = false }: MessageBubbleProps
                     )}
                   </div>
                   
-                  {/* WhatsApp-style tail */}
-                  <div className={cn(
-                    "absolute w-0 h-0",
-                    isUser 
-                      ? "right-0 bottom-0 border-l-[8px] border-l-blue-500 border-t-[8px] border-t-transparent" 
-                      : "left-0 bottom-0 border-r-[8px] border-r-gray-700 border-t-[8px] border-t-transparent"
-                  )}></div>
                 </div>
                 
                 {/* Message metadata */}
