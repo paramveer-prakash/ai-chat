@@ -13,7 +13,7 @@ import { useState } from 'react'
 export default function ChatPage() {
   const { user, isAuthenticated, isLoading: authLoading } = useAuth()
   const router = useRouter()
-  const [sidebarOpen, setSidebarOpen] = useState(false) // Default closed on mobile
+  const [sidebarOpen, setSidebarOpen] = useState(true) // Default open on desktop
   
   const { 
     messages, 
@@ -25,6 +25,27 @@ export default function ChatPage() {
     loadConversations,
     createConversation
   } = useChatStore()
+
+  // Handle responsive sidebar behavior
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 1024) {
+        // On mobile, close sidebar by default
+        setSidebarOpen(false)
+      } else {
+        // On desktop, open sidebar by default
+        setSidebarOpen(true)
+      }
+    }
+
+    // Set initial state based on screen size
+    handleResize()
+    
+    // Listen for resize events
+    window.addEventListener('resize', handleResize)
+    
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   // Track if conversations have been loaded to prevent duplicate calls
   const conversationsLoadedRef = useRef(false)
@@ -68,21 +89,14 @@ export default function ChatPage() {
     setSidebarOpen(!sidebarOpen)
   }
 
-  // Loading state
-  if (authLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
-      </div>
-    )
-  }
+
 
   // Not authenticated
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">
+          <h1 className="text-2xl font-bold mb-4">
             Authentication Required
           </h1>
           <p className="text-gray-600">Please sign in to access the chat.</p>
@@ -102,14 +116,16 @@ export default function ChatPage() {
       )}
 
       {/* Sidebar - Modern Clean Design */}
-      <div className={`
-        ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
-        fixed lg:relative lg:translate-x-0
-        w-80 h-full bg-chat-sidebar-bg text-foreground flex flex-col
-        transition-transform duration-200 ease-out z-50 lg:z-auto
-        ${!sidebarOpen && 'lg:hidden'}
-        border-r border-gray-200/50 dark:border-gray-700/50
-      `}>
+      <div 
+        className={`
+          ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+          fixed lg:relative lg:translate-x-0
+          w-80 h-full bg-chat-sidebar-bg text-foreground flex flex-col
+          transition-transform duration-200 ease-out z-50 lg:z-auto
+          ${!sidebarOpen && 'lg:hidden'}
+          border-r border-transparent
+        `}
+      >
         {/* Mobile Close Button */}
         <div className="lg:hidden p-4">
           <Button
@@ -184,10 +200,14 @@ export default function ChatPage() {
             </div>
           </div>
           
-          <div className="text-sm text-muted-foreground flex items-center gap-2 flex-shrink-0">
-            <div className="w-2 h-2 bg-primary rounded-full"></div>
-            <span className="text-xs">AskSamay</span>
-          </div>
+          {/* User Avatar with Initials */}
+          {user?.profile && (
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center flex-shrink-0">
+                <span className="text-white font-medium text-sm">
+                  {user.profile.given_name?.charAt(0)?.toUpperCase() || user.profile.email?.charAt(0)?.toUpperCase() || 'U'}
+                </span>
+              </div>
+            )}
         </div>
 
         {/* Error Display */}

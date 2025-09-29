@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useChatStore } from '@/stores/chat-store'
 import { Button } from '@/components/ui/button'
+import { ConfirmationDialog } from '@/components/ui/confirmation-dialog'
 import { Trash2, MessageSquare } from 'lucide-react'
 import { Conversation } from '@/types'
 
@@ -21,16 +22,46 @@ export function ConversationManager({ className }: ConversationManagerProps) {
   } = useChatStore()
   
   const [isExpanded, setIsExpanded] = useState(false)
+  const [deleteDialog, setDeleteDialog] = useState<{
+    isOpen: boolean
+    conversationId: number | null
+    conversationTitle: string
+  }>({
+    isOpen: false,
+    conversationId: null,
+    conversationTitle: ''
+  })
 
   useEffect(() => {
     loadConversations()
   }, [loadConversations])
 
-  const handleDeleteConversation = async (conversationId: number) => {
-    if (confirm('Are you sure you want to delete this conversation? This action cannot be undone.')) {
-      await deleteConversation(conversationId)
+  const handleDeleteConversation = (conversationId: number, conversationTitle: string) => {
+    setDeleteDialog({
+      isOpen: true,
+      conversationId,
+      conversationTitle
+    })
+  }
+
+  const confirmDelete = async () => {
+    if (deleteDialog.conversationId) {
+      await deleteConversation(deleteDialog.conversationId)
       await loadConversations() // Refresh the list
     }
+    setDeleteDialog({
+      isOpen: false,
+      conversationId: null,
+      conversationTitle: ''
+    })
+  }
+
+  const cancelDelete = () => {
+    setDeleteDialog({
+      isOpen: false,
+      conversationId: null,
+      conversationTitle: ''
+    })
   }
 
   const activeConversations = conversations.filter(conv => conv.status === 'ACTIVE')
@@ -66,7 +97,7 @@ export function ConversationManager({ className }: ConversationManagerProps) {
                 conversation={conversation}
                 isSelected={currentConversation?.id === conversation.id}
                 onSelect={() => selectConversation(conversation)}
-                onDelete={() => handleDeleteConversation(conversation.id)}
+                onDelete={() => handleDeleteConversation(conversation.id, conversation.title)}
                 isLoading={isLoading}
               />
             ))}
@@ -85,6 +116,17 @@ export function ConversationManager({ className }: ConversationManagerProps) {
         )}
       </div>
 
+      {/* Confirmation Dialog */}
+      <ConfirmationDialog
+        isOpen={deleteDialog.isOpen}
+        onClose={cancelDelete}
+        onConfirm={confirmDelete}
+        title="Delete Conversation"
+        message={`Are you sure you want to delete "${deleteDialog.conversationTitle}"? This action cannot be undone.`}
+        confirmText="Delete"
+        cancelText="Cancel"
+        variant="destructive"
+      />
     </div>
   )
 }
@@ -105,6 +147,24 @@ function ConversationItemChatGPT({
   isLoading
 }: ConversationItemChatGPTProps) {
   const [showDelete, setShowDelete] = useState(false)
+  const [isLongPress, setIsLongPress] = useState(false)
+
+  // Handle long press for mobile
+  const handleTouchStart = (e: React.TouchEvent) => {
+    e.preventDefault()
+    const touchStartTime = Date.now()
+    
+    const handleTouchEnd = () => {
+      const touchDuration = Date.now() - touchStartTime
+      if (touchDuration > 500) { // 500ms long press
+        setIsLongPress(true)
+        setShowDelete(true)
+      }
+      document.removeEventListener('touchend', handleTouchEnd)
+    }
+    
+    document.addEventListener('touchend', handleTouchEnd)
+  }
 
   return (
     <div 
@@ -116,6 +176,7 @@ function ConversationItemChatGPT({
       onClick={onSelect}
       onMouseEnter={() => setShowDelete(true)}
       onMouseLeave={() => setShowDelete(false)}
+      onTouchStart={handleTouchStart}
     >
       <div className="flex items-center space-x-3 flex-1 min-w-0">
         <MessageSquare className="w-4 h-4 flex-shrink-0" />
@@ -124,19 +185,34 @@ function ConversationItemChatGPT({
         </span>
       </div>
       
-      {showDelete && !isLoading && (
+      {/* Delete button - show on hover (desktop) or long press (mobile) */}
+      {(showDelete || isLongPress) && !isLoading && (
         <Button
           variant="ghost"
           size="sm"
           onClick={(e) => {
             e.stopPropagation()
             onDelete()
+            setIsLongPress(false)
           }}
-          className="h-6 w-6 p-0 text-gray-400 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity"
+          className="h-6 w-6 p-0 text-gray-400 hover:text-red-400 opacity-0 group-hover:opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity"
         >
           <Trash2 className="w-3 h-3" />
         </Button>
       )}
+      
+      {/* Mobile delete button - always visible on mobile */}
+      <Button
+        variant="ghost"
+        size="sm"
+        onClick={(e) => {
+          e.stopPropagation()
+          onDelete()
+        }}
+        className="h-6 w-6 p-0 text-gray-400 hover:text-red-400 sm:hidden opacity-100"
+      >
+        <Trash2 className="w-3 h-3" />
+      </Button>
     </div>
   )
 }

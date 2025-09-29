@@ -51,7 +51,7 @@ export function ChatInput({
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
           disabled={disabled || isLoading}
-          className="flex-1 resize-none bg-transparent text-foreground placeholder-muted-foreground border-0 focus:outline-none min-h-[28px] max-h-40 sm:max-h-48 text-sm sm:text-base leading-relaxed"
+          className="flex-1 resize-none bg-transparent text-foreground placeholder-muted-foreground border-0 focus:outline-none min-h-[28px] max-h-40 sm:max-h-48 chat-message leading-relaxed"
           rows={1}
           style={{
             height: 'auto',

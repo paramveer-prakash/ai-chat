@@ -1,62 +1,62 @@
 @import "tailwindcss";
 
 :root {
-  /* Light theme colors - Clean and minimal */
-  --background: #ffffff;
-  --foreground: #0a0a0a;
-  --muted: #f8f9fa;
-  --muted-foreground: #6b7280;
+  /* Gemini-inspired dark gray theme */
+  --background: #1a1a1a;
+  --foreground: #e5e7eb;
+  --muted: #2d2d2d;
+  --muted-foreground: #9ca3af;
   --border: transparent;
-  --input: #ffffff;
-  --primary: #10b981;
+  --input: #2d2d2d;
+  --primary: #4285f4;
   --primary-foreground: #ffffff;
-  --secondary: #f1f5f9;
-  --secondary-foreground: #0a0a0a;
-  --accent: #f1f5f9;
-  --accent-foreground: #0a0a0a;
+  --secondary: #2d2d2d;
+  --secondary-foreground: #e5e7eb;
+  --accent: #2d2d2d;
+  --accent-foreground: #e5e7eb;
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
-  --ring: #10b981;
+  --ring: #4285f4;
   --radius: 0.75rem;
   
-  /* Chat specific colors - Clean design */
-  --chat-bg: #ffffff;
-  --chat-user-bg: #f8fafc;
-  --chat-assistant-bg: #ffffff;
+  /* Chat specific colors - Gemini dark theme */
+  --chat-bg: #1a1a1a;
+  --chat-user-bg: #2d2d2d;
+  --chat-assistant-bg: #1a1a1a;
   --chat-border: transparent;
-  --chat-input-bg: #ffffff;
-  --chat-input-border: #e2e8f0;
-  --chat-sidebar-bg: #f1f5f9;
+  --chat-input-bg: #2d2d2d;
+  --chat-input-border: #374151;
+  --chat-sidebar-bg: #282a2c;
   --chat-sidebar-border: transparent;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    /* Dark theme colors - Clean and minimal */
-    --background: #0a0a0a;
-    --foreground: #fafafa;
+    /* Enhanced dark theme for better contrast */
+    --background: #0f0f0f;
+    --foreground: #f0f0f0;
     --muted: #1a1a1a;
-    --muted-foreground: #9ca3af;
+    --muted-foreground: #a3a3a3;
     --border: transparent;
     --input: #1a1a1a;
-    --primary: #10b981;
+    --primary: #4285f4;
     --primary-foreground: #ffffff;
     --secondary: #1a1a1a;
-    --secondary-foreground: #fafafa;
+    --secondary-foreground: #f0f0f0;
     --accent: #1a1a1a;
-    --accent-foreground: #fafafa;
+    --accent-foreground: #f0f0f0;
     --destructive: #ef4444;
     --destructive-foreground: #ffffff;
-    --ring: #10b981;
+    --ring: #4285f4;
     
-    /* Chat specific dark colors - Clean design */
-    --chat-bg: #0a0a0a;
+    /* Chat specific dark colors - Enhanced contrast */
+    --chat-bg: #0f0f0f;
     --chat-user-bg: #1a1a1a;
-    --chat-assistant-bg: #0a0a0a;
+    --chat-assistant-bg: #0f0f0f;
     --chat-border: transparent;
     --chat-input-bg: #1a1a1a;
-    --chat-input-border: #374151;
-    --chat-sidebar-bg: #111111;
+    --chat-input-border: #2d2d2d;
+    --chat-sidebar-bg: #282a2c;
     --chat-sidebar-border: transparent;
   }
 }
@@ -77,6 +77,37 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 14px; /* Gemini-style base font size */
+  line-height: 1.5;
+}
+
+/* Gemini-style typography */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+h1 { font-size: 2rem; }
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.25rem; }
+h4 { font-size: 1.125rem; }
+h5 { font-size: 1rem; }
+h6 { font-size: 0.875rem; }
+
+/* Chat message text sizes */
+.chat-message {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.chat-message-small {
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.chat-message-large {
+  font-size: 15px;
+  line-height: 1.6;
 }
 
 /* Custom scrollbar styles */
@@ -172,4 +203,47 @@ body {
     -webkit-user-select: none;
     user-select: none;
   }
+}
+
+/* Dialog animations */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes zoom-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-in {
+  animation: fade-in 0.2s ease-out;
+}
+
+.fade-in-0 {
+  animation: fade-in 0.2s ease-out;
+}
+
+.zoom-in-95 {
+  animation: zoom-in 0.2s ease-out;
+}
+
+/* Ensure sidebar background is applied correctly */
+.bg-chat-sidebar-bg {
+  background-color: var(--chat-sidebar-bg) !important;
+}
+
+/* Additional specificity for sidebar */
+div.bg-chat-sidebar-bg {
+  background-color: #282a2c !important;
 }

@@ -37,7 +37,7 @@ export function ChatWindow({
       <div className="flex-1 overflow-y-auto">
         {messages.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full text-center px-4 py-12">
-            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center mb-8 shadow-lg">
+            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center mb-8 shadow-lg">
               <Bot className="w-8 h-8 text-white" />
             </div>
             <h2 className="text-2xl sm:text-3xl font-display font-semibold text-foreground mb-6">
@@ -87,9 +87,9 @@ export function ChatWindow({
 
       {/* Error Display */}
       {error && (
-        <div className="bg-red-50 border-b border-red-200 px-4 py-3">
+        <div className="bg-destructive/10 border-b border-destructive/20 px-4 py-3">
           <div className="max-w-3xl mx-auto">
-            <p className="text-sm text-red-600">
+            <p className="text-sm text-destructive">
               {error}
             </p>
           </div>
@@ -97,12 +97,12 @@ export function ChatWindow({
       )}
 
       {/* Input */}
-      <div className="border-t border-gray-200 bg-white px-3 sm:px-4 py-3 sm:py-4">
+      <div className="bg-chat-bg px-3 sm:px-4 py-3 sm:py-4">
         <div className="max-w-3xl mx-auto">
           <ChatInput 
             onSendMessage={onSendMessage}
             disabled={isLoading}
-            placeholder={messages.length === 0 ? "Message ChatGPT..." : "Message ChatGPT..."}
+            placeholder={messages.length === 0 ? "Message AskSamay..." : "Message AskSamay..."}
           />
         </div>
       </div>

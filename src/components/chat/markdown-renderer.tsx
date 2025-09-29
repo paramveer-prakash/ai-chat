@@ -24,39 +24,39 @@ export function MarkdownRenderer({ content, className }: MarkdownRendererProps) 
         components={{
           // Headings
           h1: ({ children, ...props }) => (
-            <h1 className="text-2xl font-bold text-gray-900 mt-6 mb-4 first:mt-0" {...props}>
+            <h1 className="text-2xl font-bold mt-6 mb-4 first:mt-0" {...props}>
               {children}
             </h1>
           ),
           h2: ({ children, ...props }) => (
-            <h2 className="text-xl font-bold text-gray-900 mt-5 mb-3 first:mt-0" {...props}>
+            <h2 className="text-xl font-bold mt-5 mb-3 first:mt-0" {...props}>
               {children}
             </h2>
           ),
           h3: ({ children, ...props }) => (
-            <h3 className="text-lg font-semibold text-gray-900 mt-4 mb-2 first:mt-0" {...props}>
+            <h3 className="text-lg font-semibold mt-4 mb-2 first:mt-0" {...props}>
               {children}
             </h3>
           ),
           h4: ({ children, ...props }) => (
-            <h4 className="text-base font-semibold text-gray-900 mt-3 mb-2 first:mt-0" {...props}>
+            <h4 className="text-base font-semibold mt-3 mb-2 first:mt-0" {...props}>
               {children}
             </h4>
           ),
           h5: ({ children, ...props }) => (
-            <h5 className="text-sm font-semibold text-gray-900 mt-3 mb-1 first:mt-0" {...props}>
+            <h5 className="text-sm font-semibold mt-3 mb-1 first:mt-0" {...props}>
               {children}
             </h5>
           ),
           h6: ({ children, ...props }) => (
-            <h6 className="text-sm font-medium text-gray-900 mt-3 mb-1 first:mt-0" {...props}>
+            <h6 className="text-sm font-medium mt-3 mb-1 first:mt-0" {...props}>
               {children}
             </h6>
           ),
           
           // Paragraphs
           p: ({ children, ...props }) => (
-            <p className="text-gray-900 leading-7 mb-4 last:mb-0" {...props}>
+            <p className="leading-7 mb-4 last:mb-0" {...props}>
               {children}
             </p>
           ),
@@ -73,7 +73,7 @@ export function MarkdownRenderer({ content, className }: MarkdownRendererProps) 
             </ol>
           ),
           li: ({ children, ...props }) => (
-            <li className="text-gray-900 leading-6" {...props}>
+            <li className="leading-6" {...props}>
               {children}
             </li>
           ),
@@ -104,7 +104,7 @@ export function MarkdownRenderer({ content, className }: MarkdownRendererProps) 
             if (isInline) {
               return (
                 <code 
-                  className="bg-gray-100 text-gray-900 px-1.5 py-0.5 rounded text-sm font-mono" 
+                  className="bg-gray-100 px-1.5 py-0.5 rounded text-sm font-mono" 
                   {...props}
                 >
                   {children}
@@ -149,12 +149,12 @@ export function MarkdownRenderer({ content, className }: MarkdownRendererProps) 
             </tr>
           ),
           th: ({ children, ...props }) => (
-            <th className="px-4 py-2 text-left font-semibold text-gray-900 border-b border-gray-300" {...props}>
+            <th className="px-4 py-2 text-left font-semibold border-b border-gray-300" {...props}>
               {children}
             </th>
           ),
           td: ({ children, ...props }) => (
-            <td className="px-4 py-2 text-gray-900 border-b border-gray-200" {...props}>
+            <td className="px-4 py-2 border-b border-gray-200" {...props}>
               {children}
             </td>
           ),

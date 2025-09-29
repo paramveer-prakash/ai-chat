@@ -16,17 +16,20 @@ export function MessageBubble({ message, isLoading = false }: MessageBubbleProps
 
   return (
     <div className={cn(
-      "py-4 px-4 sm:px-6",
-      isAssistant ? "bg-chat-assistant-bg" : "bg-chat-user-bg"
+      "py-3 px-4 sm:px-6",
+      isAssistant ? "bg-chat-assistant-bg" : ""
     )}>
       <div className="max-w-4xl mx-auto">
-        <div className="flex gap-3 items-start">
+        <div className={cn(
+          "flex gap-3 items-start",
+          isUser ? "flex-row-reverse" : ""
+        )}>
           {/* Avatar */}
           <div className={cn(
             "flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center",
             isUser 
-              ? "bg-primary text-primary-foreground" 
-              : "bg-muted text-muted-foreground"
+              ? "bg-gradient-to-br from-blue-400 to-blue-600 text-white shadow-sm" 
+              : "bg-gradient-to-br from-gray-600 to-gray-700 text-white shadow-sm"
           )}>
             {isUser ? (
               <User className="w-4 h-4" />
@@ -36,7 +39,10 @@ export function MessageBubble({ message, isLoading = false }: MessageBubbleProps
           </div>
 
           {/* Message Content */}
-          <div className="flex-1 min-w-0 space-y-4">
+          <div className={cn(
+            "flex-1 min-w-0 space-y-2",
+            isUser ? "flex flex-col items-end" : ""
+          )}>
             {isLoading ? (
               <div className="flex items-center space-x-3">
                 <div className="flex space-x-1">
@@ -48,18 +54,37 @@ export function MessageBubble({ message, isLoading = false }: MessageBubbleProps
               </div>
             ) : (
               <>
-                <div className="text-foreground leading-relaxed prose prose-sm max-w-none">
-                  {isAssistant ? (
-                    <MarkdownRenderer content={message.content} />
-                  ) : (
-                    <div className="whitespace-pre-wrap break-words font-sans">
-                      {message.content}
-                    </div>
-                  )}
+                {/* WhatsApp-style message bubble */}
+                <div className={cn(
+                  "relative max-w-xs sm:max-w-md lg:max-w-lg xl:max-w-xl"
+                )}>
+                  <div className={cn(
+                    "px-4 py-2 chat-message",
+                    isUser ? "rounded-l-2xl rounded-tr-2xl rounded-br-sm" : "rounded-r-2xl rounded-tl-2xl rounded-bl-sm"
+                  )}>
+                    {isAssistant ? (
+                      <MarkdownRenderer content={message.content} />
+                    ) : (
+                      <div className="whitespace-pre-wrap break-words font-sans">
+                        {message.content}
+                      </div>
+                    )}
+                  </div>
+                  
+                  {/* WhatsApp-style tail */}
+                  <div className={cn(
+                    "absolute w-0 h-0",
+                    isUser 
+                      ? "right-0 bottom-0 border-l-[8px] border-l-blue-500 border-t-[8px] border-t-transparent" 
+                      : "left-0 bottom-0 border-r-[8px] border-r-gray-700 border-t-[8px] border-t-transparent"
+                  )}></div>
                 </div>
                 
                 {/* Message metadata */}
-                <div className="flex items-center gap-3 text-xs text-muted-foreground flex-wrap">
+                <div className={cn(
+                  "flex items-center gap-3 chat-message-small text-muted-foreground flex-wrap",
+                  isUser ? "justify-end" : "justify-start"
+                )}>
                   <span className="flex items-center gap-1.5">
                     <Clock className="w-3 h-3" />
                     {formatDate(message.createdAt)}
