@@ -102,7 +102,7 @@ export function ChatWindow({
           <ChatInput 
             onSendMessage={onSendMessage}
             disabled={isLoading}
-            placeholder={messages.length === 0 ? "Message AskSamay..." : "Message AskSamay..."}
+            placeholder={messages.length === 0 ? "Message..." : "Message..."}
           />
         </div>
       </div>

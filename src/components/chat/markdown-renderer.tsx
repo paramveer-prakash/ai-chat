@@ -166,12 +166,12 @@ export function MarkdownRenderer({ content, className }: MarkdownRendererProps) 
           
           // Strong and emphasis
           strong: ({ children, ...props }) => (
-            <strong className="font-bold text-gray-900" {...props}>
+            <strong className="font-bold" {...props}>
               {children}
             </strong>
           ),
           em: ({ children, ...props }) => (
-            <em className="italic text-gray-900" {...props}>
+            <em className="italic" {...props}>
               {children}
             </em>
           ),
