@@ -116,41 +116,6 @@ export default function SettingsPage() {
             </div>
           </div>
 
-          {/* AI Model Information */}
-          <div className="bg-white border border-gray-200 rounded-lg p-4 sm:p-6">
-            <div className="flex items-center space-x-3 mb-6">
-              <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
-                <Info className="w-5 h-5 text-purple-600" />
-              </div>
-              <div>
-                <h2 className="text-lg font-semibold text-gray-900">AI Model</h2>
-                <p className="text-sm text-gray-500">Information about the AI model powering your conversations</p>
-              </div>
-            </div>
-            
-            <div className="space-y-4">
-              <div className="flex items-center justify-between py-3 border-b border-gray-100">
-                <div>
-                  <p className="text-sm font-medium text-gray-900">Model</p>
-                  <p className="text-sm text-gray-500">Amazon Nova Pro</p>
-                </div>
-              </div>
-              
-              <div className="flex items-center justify-between py-3 border-b border-gray-100">
-                <div>
-                  <p className="text-sm font-medium text-gray-900">Provider</p>
-                  <p className="text-sm text-gray-500">AWS Bedrock</p>
-                </div>
-              </div>
-              
-              <div className="flex items-center justify-between py-3">
-                <div>
-                  <p className="text-sm font-medium text-gray-900">Capabilities</p>
-                  <p className="text-sm text-gray-500">Text generation, conversation memory, context awareness</p>
-                </div>
-              </div>
-            </div>
-          </div>
 
           {/* Privacy & Security */}
           <div className="bg-white border border-gray-200 rounded-lg p-4 sm:p-6">
@@ -165,13 +130,6 @@ export default function SettingsPage() {
             </div>
             
             <div className="space-y-4">
-              <div className="flex items-center justify-between py-3 border-b border-gray-100">
-                <div>
-                  <p className="text-sm font-medium text-gray-900">Authentication</p>
-                  <p className="text-sm text-gray-500">AWS Cognito OIDC</p>
-                </div>
-                <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Secure</span>
-              </div>
               
               <div className="flex items-center justify-between py-3 border-b border-gray-100">
                 <div>

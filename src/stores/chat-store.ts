@@ -218,7 +218,7 @@ export const useChatStore = create<ChatStore>((set, get) => ({
     
     // Create conversation if none exists
     if (!currentConversation) {
-      const newConversation = await get().createConversation();
+      const newConversation = await get().createConversation(truncateString(messageContent));
       if (!newConversation) return;
     }
 
@@ -301,3 +301,10 @@ export const useChatStore = create<ChatStore>((set, get) => ({
   setError: (error: string | null) => set({ error }),
   clearError: () => set({ error: null }),
 }));
+
+function truncateString(str: string, maxLength = 20) {
+  if (str.length <= maxLength) {
+    return str;
+  }
+  return str.substring(0, maxLength - 3) + "...";
+}
