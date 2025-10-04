@@ -2,8 +2,9 @@
 
 import { Message } from '@/types'
 import { cn, formatDate, formatTokens } from '@/lib/utils'
-import { User, Bot, Clock, Zap } from 'lucide-react'
+import { User, Bot, Clock, Zap, Copy, Check } from 'lucide-react'
 import { MarkdownRenderer } from './markdown-renderer'
+import { useState } from 'react'
 
 interface MessageBubbleProps {
   message: Message
@@ -13,13 +14,24 @@ interface MessageBubbleProps {
 export function MessageBubble({ message, isLoading = false }: MessageBubbleProps) {
   const isUser = message.role === 'USER'
   const isAssistant = message.role === 'ASSISTANT'
+  const [copied, setCopied] = useState(false)
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(message.content)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch (err) {
+      console.error('Failed to copy text: ', err)
+    }
+  }
 
   return (
     <div className={cn(
       "py-3 px-4 sm:px-6",
       isAssistant ? "bg-chat-assistant-bg" : ""
     )}>
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <div className={cn(
           "flex gap-3 items-start",
           isUser ? "flex-row-reverse" : ""
@@ -56,11 +68,14 @@ export function MessageBubble({ message, isLoading = false }: MessageBubbleProps
               <>
                 {/* WhatsApp-style message bubble */}
                 <div className={cn(
-                  "relative max-w-xs sm:max-w-md lg:max-w-lg xl:max-w-xl"
+                  "relative max-w-sm sm:max-w-2xl lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl group",
+                  isUser ? "flex flex-col items-end" : ""
                 )}>
                   <div className={cn(
                     "px-4 py-2 chat-message",
-                    isUser ? "rounded-l-2xl rounded-tr-2xl rounded-br-sm bg-[#333537] rounded-[15px] rounded-tr-none py-[12px] px-[16px]" : "rounded-r-2xl rounded-tl-2xl rounded-bl-sm"
+                    isUser 
+                      ? "rounded-l-2xl rounded-tr-2xl rounded-br-sm bg-[#333537] rounded-[15px] rounded-tr-none py-[12px] px-[16px]" 
+                      : "rounded-r-2xl rounded-tl-2xl rounded-bl-sm pr-12"
                   )}>
                     {isAssistant ? (
                       <MarkdownRenderer content={message.content} />
@@ -71,6 +86,46 @@ export function MessageBubble({ message, isLoading = false }: MessageBubbleProps
                     )}
                   </div>
                   
+                  {/* Copy button - positioned differently for user vs AI messages */}
+                  {isUser ? (
+                    // For user messages, position outside the bubble
+                    <button
+                      onClick={handleCopy}
+                      className={cn(
+                        "mt-2 p-1.5 rounded-md transition-all duration-500 ease-in-out",
+                        "opacity-0 group-hover:opacity-100",
+                        "bg-white/80 hover:bg-white/90 text-gray-500 hover:text-gray-700",
+                        "dark:bg-gray-800/60 dark:hover:bg-gray-800/90 dark:text-gray-400 dark:hover:text-gray-200",
+                        "shadow-sm hover:shadow-md border border-gray-200/50 dark:border-gray-600/50"
+                      )}
+                      title={copied ? "Copied!" : "Copy message"}
+                    >
+                      {copied ? (
+                        <Check className="w-4 h-4" />
+                      ) : (
+                        <Copy className="w-4 h-4" />
+                      )}
+                    </button>
+                  ) : (
+                    // For AI messages, position inside the bubble
+                    <button
+                      onClick={handleCopy}
+                      className={cn(
+                        "absolute top-2 right-2 p-1.5 rounded-md transition-all duration-500 ease-in-out",
+                        "opacity-0 group-hover:opacity-100 z-10",
+                        "bg-white/80 hover:bg-white/90 text-gray-500 hover:text-gray-700",
+                        "dark:bg-gray-800/60 dark:hover:bg-gray-800/90 dark:text-gray-400 dark:hover:text-gray-200",
+                        "shadow-sm hover:shadow-md border border-gray-200/50 dark:border-gray-600/50"
+                      )}
+                      title={copied ? "Copied!" : "Copy message"}
+                    >
+                      {copied ? (
+                        <Check className="w-4 h-4" />
+                      ) : (
+                        <Copy className="w-4 h-4" />
+                      )}
+                    </button>
+                  )}
                 </div>
                 
                 {/* Message metadata */}

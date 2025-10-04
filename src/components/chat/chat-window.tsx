@@ -43,7 +43,7 @@ export function ChatWindow({
             <h2 className="text-2xl sm:text-3xl font-display font-semibold text-foreground mb-6">
               How can I help you today?
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mb-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-6xl mb-12">
               <div className="p-6 rounded-2xl hover:bg-muted/30 transition-all duration-200 cursor-pointer group">
                 <h3 className="font-medium text-foreground mb-3 group-hover:text-primary transition-colors">💡 Explain concepts</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">Break down complex topics into simple terms</p>
@@ -88,7 +88,7 @@ export function ChatWindow({
       {/* Error Display */}
       {error && (
         <div className="bg-destructive/10 border-b border-destructive/20 px-4 py-3">
-          <div className="max-w-3xl mx-auto">
+          <div className="max-w-6xl mx-auto">
             <p className="text-sm text-destructive">
               {error}
             </p>
@@ -98,7 +98,7 @@ export function ChatWindow({
 
       {/* Input */}
       <div className="bg-chat-bg px-3 sm:px-4 py-3 sm:py-4">
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <ChatInput 
             onSendMessage={onSendMessage}
             disabled={isLoading}
