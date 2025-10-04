@@ -123,7 +123,7 @@ export const useChatStore = create<ChatStore>((set, get) => ({
       
       set({
         currentConversation: conversationDetail,
-        messages: messages.reverse(), // Reverse to show chronological order (oldest to newest)
+        messages: messages, // Reverse to show chronological order (oldest to newest)
         isLoading: false
       });
       
